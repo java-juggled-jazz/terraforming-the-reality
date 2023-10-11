@@ -37,30 +37,30 @@ data "twc_lb_preset" "lb-preset" {
   }
 }
 
-#resource "twc_lb" "web-lb-1" {
-#  name = "Balancing Finch"
-#  algo = "roundrobin"
-#
-#  preset_id = data.twc_lb_preset.lb-preset.id
-#
-#  is_sticky = false
-#  is_use_proxy = false
-#  is_ssl = false
-#  is_keepalive = false
-#
-#  health_check {
-#    proto = "http"
-#
-#    port = 80
-#
-#    inter = 10
-#    timeout = 5
-#    fall = 3
-#    rise = 2
-#  }
-#
-#  ips = [resource.twc_server.web-vm-1.networks.ips.ip, resource.twc_server.web-vm-2.networks.ips.ip]
-#}
+resource "twc_lb" "web-lb-1" {
+  name = "Balancing Finch"
+  algo = "roundrobin"
+
+  preset_id = data.twc_lb_preset.lb-preset.id
+
+  is_sticky = false
+  is_use_proxy = false
+  is_ssl = false
+  is_keepalive = false
+
+  health_check {
+    proto = "http"
+
+    port = 80
+
+    inter = 10
+    timeout = 5
+    fall = 3
+    rise = 2
+  }
+
+  ips = [resource.twc_server.web-vm-1.networks.ips.ip, resource.twc_server.web-vm-2.networks.ips.ip]
+}
 
 resource "twc_server" "web-vm-1" {
   name = "First Web Finch"
@@ -94,8 +94,8 @@ resource "twc_server" "web-vm-2" {
   }
 }
 
-#resource "twc_vpc" "web-vpc-1" {
-#  name = "Local Finch"
-#  subnet_v4 = "192.168.0.0/24"
-#  location = "ru-1"
-#}
+resource "twc_vpc" "web-vpc-1" {
+  name = "Local Finch"
+  subnet_v4 = "192.168.0.0/24"
+  location = "ru-1"
+}
