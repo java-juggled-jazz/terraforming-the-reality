@@ -1,4 +1,5 @@
 #!/bin/bash
+echo "Let's deploy VM with Kubernetes and Gitlab. Press Ctrl + C to stop."
 echo "How much Disk space is required?"
 read disk_space
 echo "How many CPU cores is required?"
