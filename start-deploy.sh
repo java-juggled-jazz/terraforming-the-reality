@@ -1,4 +1,12 @@
 #!/bin/bash
+echo "Checking if Terraform is installed..."
+
+if ! command -v terraform &> /dev/null
+then
+    echo "Terraform could not be found. Please install Terraform and try again."
+    return
+fi
+
 echo -e "Let's deploy VM with Kubernetes and Gitlab. \e[4mPress Ctrl + C to stop.\e[0m"
 echo "How much Disk space is required?"
 read disk_space
