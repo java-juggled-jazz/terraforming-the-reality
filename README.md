@@ -8,4 +8,6 @@ Tech-Stack:
 4) GitLab (CI/CD),
 5) Python (test).
 
-*Please note that this program creates a file named as* ```.terraformrc```*. It's required for initializing Yandex Cloud provider.*
+Don't forget to put credentials in file named as ```credentials``` in project root directory.
+
+*Please note that this program creates a file named as* ```~/.terraformrc```*. It's required for initializing Yandex Cloud provider.*
