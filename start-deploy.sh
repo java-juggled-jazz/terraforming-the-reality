@@ -1,4 +1,6 @@
 #!/bin/bash
+PWD=$(pwd)
+
 echo "Checking if Terraform is installed..."
 
 if ! command -v terraform &> /dev/null
@@ -15,5 +17,16 @@ read cpu_cores
 echo "How much RAM is required?"
 read ram
 echo "Select any provider to continue"
-echo -e "\n\e[4m1. Timeweb Cloud\e[0m\n\n\e[4m2. Yandex Cloud\e[0m\n"
+echo -e "\n\e[4mTimeweb Cloud (1)\e[0m\n\n\e[4mYandex Cloud (2)\e[0m\n"
 read provider
+
+case $provider in
+  "1")
+  cd tf-twc
+  ;;
+  "2")
+  cd tf-yc
+  ;;
+esac
+
+terraform init
