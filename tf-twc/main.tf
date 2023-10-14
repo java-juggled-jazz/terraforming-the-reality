@@ -46,12 +46,6 @@ resource "twc_ssh_key" "k8s-vm-key" {
   body = file(var.ssh_pub_key_dir)
 }
 
-resource "twc_server_ip" "k8s-vm-ip" {
-  source_server_id = twc_server.k8s-vm.id
-
-  type = "ipv4"
-}
-
 resource "twc_server" "k8s-vm" {
   name = "CICD K8s VM"
   os_id = data.twc_os.os.id
@@ -62,8 +56,4 @@ resource "twc_server" "k8s-vm" {
     cpu = var.cpu_cores
     ram = var.ram * 1024
   }
-}
-
-output "k8s-vm-ip" {
-  value = twc_server_ip.k8s-vm-ip.ip
 }

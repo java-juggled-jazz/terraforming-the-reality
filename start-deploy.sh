@@ -38,8 +38,7 @@ case $provider in
 esac
 
 terraform init -var="disk_space=$disk_space" -var="cpu_cores=$cpu_cores" -var="ram=$ram" -var="twc_token=$twc_token" -var="ssh_pub_key_dir=$ssh_pub_key_dir"
-
 terraform plan -var="disk_space=$disk_space" -var="cpu_cores=$cpu_cores" -var="ram=$ram" -var="twc_token=$twc_token" -var="ssh_pub_key_dir=$ssh_pub_key_dir"
-
 terraform apply -var="disk_space=$disk_space" -var="cpu_cores=$cpu_cores" -var="ram=$ram" -var="twc_token=$twc_token" -var="ssh_pub_key_dir=$ssh_pub_key_dir"
+
 cd ..
