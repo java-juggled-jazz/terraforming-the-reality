@@ -7,6 +7,14 @@ terraform {
   required_version = ">= 1.4.4"
 }
 
+variable "twc_token" {
+  type = string
+}
+
+provider "twc" {
+  token = var.twc_token
+}
+
 data "twc_configurator" "configurator" {
   location = "ru-1"
   disk_type = "nvme"
