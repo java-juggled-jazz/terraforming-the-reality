@@ -32,9 +32,18 @@ variable "ram" {
   type = number
 }
 
+variable "ssh_pub_key_dir" {
+  type = string
+}
+
 data "twc_os" "os" {
   name = "almalinux"
   version = "9.0"
+}
+
+resource "twc_ssh_key" "k8s-vm-key" {
+  name = "K8s CICD VM SSH key"
+  body = file(var.ssh_pub_key_dir)
 }
 
 resource "twc_server_ip" "k8s-vm-ip" {
