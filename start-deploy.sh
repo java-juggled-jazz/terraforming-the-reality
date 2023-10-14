@@ -1,6 +1,4 @@
 #!/bin/bash
-PWD=$(pwd)
-
 echo "Checking if Terraform is installed..."
 
 if ! command -v terraform &> /dev/null
@@ -20,6 +18,8 @@ echo "Select any provider to continue"
 echo -e "\n\e[4mTimeweb Cloud (1)\e[0m\n\n\e[4mYandex Cloud (2)\e[0m\n"
 read provider
 
+source credentials
+
 case $provider in
   "1")
   cd tf-twc
@@ -29,4 +29,8 @@ case $provider in
   ;;
 esac
 
-terraform init
+terraform init -var="disk_space=$disk_space" -var="cpu_cores=$cpu_cores" -var="ram=$ram"
+
+terraform plan -var="disk_space=$disk_space" -var="cpu_cores=$cpu_cores" -var="ram=$ram"
+
+cd ..
