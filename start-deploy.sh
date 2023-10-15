@@ -20,13 +20,14 @@ read provider
 
 source credentials
 
-mkdir outputs > /dev/null
-mkdir outputs/ssh > /dev/null
+mkdir -p outputs/ssh
 
-ssh-keygen -f outputs/ssh/key -P ""
-chmod 700 -R outputs/ssh
+timestamp=$(date +%F_%T)
 
-ssh_pub_key_dir=$(pwd)"/outputs/ssh/key"
+ssh-keygen -f "outputs/ssh/key_$timestamp" -P ""
+chmod 600 -R outputs/ssh
+
+ssh_pub_key_dir=$(pwd)"/outputs/ssh/key_$timestamp.pub"
 
 case $provider in
   "1")
