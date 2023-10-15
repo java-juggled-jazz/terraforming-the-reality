@@ -1,23 +1,29 @@
 terraform {
   required_providers {
-    twc = {
-      source = "tf.timeweb.cloud/timeweb-cloud/timeweb-cloud"
+    yandex = {
+      source = "yandex-cloud/yandex"
     }
   }
-  required_version = ">= 1.4.4"
 }
 
-variable "twc_token" {
+provider "yandex" {
+  zone = "ru-central1-a"
+}
+
+variable "yc_id" {
   type = string
 }
 
-provider "twc" {
-  token = var.twc_token
+variable "yc_cloud_id" {
+  type = string
 }
 
-data "twc_configurator" "configurator" {
-  location = "ru-1"
-  disk_type = "nvme"
+variable "yc_folder_id" {
+  type = string
+}
+
+variable "yc_token" {
+  type = string
 }
 
 variable "disk_space" {
@@ -36,24 +42,42 @@ variable "ssh_pub_key_dir" {
   type = string
 }
 
-data "twc_os" "os" {
-  name = "almalinux"
-  version = "9.0"
-}
-
-resource "twc_ssh_key" "k8s-vm-key" {
-  name = "K8s CICD VM SSH key"
-  body = file(var.ssh_pub_key_dir)
-}
-
-resource "twc_server" "k8s-vm" {
+resource "yandex_compute_instance" "k8s-vm" {
   name = "CICD K8s VM"
-  os_id = data.twc_os.os.id
 
-  configuration {
-    configurator_id = data.twc_configurator.configurator.id
-    disk = var.disk_space * 1024
-    cpu = var.cpu_cores
-    ram = var.ram * 1024
+  boot_disk {
+    initialize_params {
+      image_id="fd8vdg9p6tlb004shc1t"
+      size = var.disk_space
+    }
   }
+
+  resources {
+    cores = var.cpu_cores
+    memory = var.ram * 1024
+  }
+
+  metadata = {
+    ssh-keys = "${file(var.ssh_pub_key_dir)}"
+  }
+
+  network_interface {
+    subnet_id = yandex_vpc_subnet.subnet-1.id
+    nat       = true
+  }
+}
+
+resource "yandex_vpc_network" "network-1" {
+  name = "network1"
+}
+
+resource "yandex_vpc_subnet" "subnet-1" {
+  name           = "subnet1"
+  zone           = "ru-central1-a"
+  network_id     = yandex_vpc_network.network-1.id
+  v4_cidr_blocks = ["192.168.10.0/24"]
+}
+
+output "k8s-vm_ext_ip_add" {
+  value = yandex_compute_instance.k8s-vm.network_interface.0.nat_ip_address
 }
