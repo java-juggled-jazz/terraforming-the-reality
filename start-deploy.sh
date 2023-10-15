@@ -38,8 +38,8 @@ case $provider in
   "2")
   cd tf-yc
   terraform init -var="disk_space=$disk_space" -var="cpu_cores=$cpu_cores" -var="ram=$ram" -var="yc_id=$yc_id" -var="yc_folder_id=$yc_folder_id" -var="yc_cloud_id=$yc_cloud_id" -var="yc_token=$yc_token" -var="ssh_pub_key_dir=$ssh_pub_key_dir"
-  terraform plan -var="disk_space=$disk_space" -var="cpu_cores=$cpu_cores" -var="ram=$ram" -var="yc_id=$yc_id" -var="ssh_pub_key_dir=$ssh_pub_key_dir"
-  terraform apply -var="disk_space=$disk_space" -var="cpu_cores=$cpu_cores" -var="ram=$ram" -var="yc_id=$yc_id" -var="ssh_pub_key_dir=$ssh_pub_key_dir"
+  terraform plan -var="disk_space=$disk_space" -var="cpu_cores=$cpu_cores" -var="ram=$ram" -var="yc_id=$yc_id" -var="yc_folder_id=$yc_folder_id" -var="yc_cloud_id=$yc_cloud_id" -var="yc_token=$yc_token"  -var="ssh_pub_key_dir=$ssh_pub_key_dir"
+  terraform apply -var="disk_space=$disk_space" -var="cpu_cores=$cpu_cores" -var="ram=$ram" -var="yc_id=$yc_id" -var="yc_folder_id=$yc_folder_id" -var="yc_cloud_id=$yc_cloud_id" -var="yc_token=$yc_token" -var="ssh_pub_key_dir=$ssh_pub_key_dir"
   ;;
 esac
 
