@@ -46,7 +46,7 @@ variable "ssh_pub_key_dir" {
 }
 
 resource "yandex_compute_instance" "k8s-vm" {
-  name = "CICD K8s VM"
+  name = "cicd-k8s-vm"
 
   boot_disk {
     initialize_params {
@@ -57,7 +57,7 @@ resource "yandex_compute_instance" "k8s-vm" {
 
   resources {
     cores = var.cpu_cores
-    memory = var.ram * 1024
+    memory = var.ram
   }
 
   metadata = {
