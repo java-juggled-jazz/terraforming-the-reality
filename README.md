@@ -5,8 +5,8 @@ Tech-Stack:
 1) Bash (scripting),
 2) Terraform (VM deploy),
 3) Kubernetes (container orchestration),
-4) GitLab (CI/CD),
-5) Python (test).
+4) Jenkins (CI/CD),
+5) Python (tests, will be in future).
 
 Don't forget to put credentials in file named as ```credentials``` in project root directory.
 
